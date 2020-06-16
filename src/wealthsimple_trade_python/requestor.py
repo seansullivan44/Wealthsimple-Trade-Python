@@ -75,7 +75,11 @@ class APIRequestor:
         Response : Response
             A requests response object
         """
-        return self.session.post(URL, params)
+
+        try:
+            return self.session.post(URL, params)
+        except Exception as err:
+            print(err)
 
     def get(self, URL, params=None):
         """Make a GET request to a given API endpoint

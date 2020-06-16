@@ -1,4 +1,4 @@
-from requestor import APIRequestor
+from .requestor import APIRequestor
 from requests import Session
 import os
 import json
@@ -86,15 +86,9 @@ class WSTrade:
                 response = self.TradeAPI.makeRequest("POST", "auth/login", data)
             except Exception as err:
                 print(err)
-            print(response)
-            print(response.headers)
-            print(response.content)
-            print("ACCESS TOKEN:")
-            print(response.headers["X-Access-Token"])
             self.session.headers.update(
                 {"Authorization": response.headers["X-Access-Token"]}
             )
-            print(self.session.headers)
         else:
             raise Exception("Missing login credentials")
 
@@ -301,6 +295,7 @@ class WSTrade:
         return response.json()
 
 
+"""
 WS = WSTrade(os.environ["WSUSER"], os.environ["WSP"])
 print("\n\n\n\n")
 print(WS.__doc__)
@@ -310,6 +305,7 @@ id = WS.get_account_ids()
 # me = WS.get_positions(id[2])
 me = WS.get_positions(id=id[2])
 # print(me["results"])
+"""
 """
 for x in me:
     print(x)
