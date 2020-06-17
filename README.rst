@@ -42,9 +42,8 @@ Overview
 
 .. end-badges
 
-Python wrapper for the Wealthsimple Trade API
+A convenient Python wrapper for the Wealthsimple Trade API. Note that this wrapper is Unofficial and is not in any way affiliated with Wealthsimple. Please use at your own risk.
 
-* Free software: MIT license
 
 Installation
 ============
@@ -59,7 +58,7 @@ You can also install the in-development version with::
 
 Getting Started
 ===============
-
+Download the Wealthsimple Trade app for iOS or Android and create an account. This API wrapper will use your Wealthsimple Trade login credentials to make successful API calls. After creating an account, use your login credentials to create a WSTrade object:
 ::
 
     import wealthsimple
