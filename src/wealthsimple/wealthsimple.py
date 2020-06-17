@@ -117,7 +117,6 @@ class WSTrade:
         accountIDList = []
         for account in userAccounts:
             accountIDList.append(account["id"])
-        print(accountIDList)
         return accountIDList
 
     def get_account(self, id):

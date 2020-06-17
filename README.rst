@@ -57,6 +57,12 @@ You can also install the in-development version with::
 
     pip install https://github.com/seansullivan44/Wealthsimple-Trade-Python/archive/master.zip
 
+Getting Started
+===============
+
+::
+    import wealthsimple
+    WS = wealthsimple.WSTrade('email', 'password')
 
 Documentation
 =============
