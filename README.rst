@@ -61,6 +61,7 @@ Getting Started
 ===============
 
 ::
+
     import wealthsimple
     WS = wealthsimple.WSTrade('email', 'password')
 
