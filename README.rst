@@ -1,7 +1,15 @@
 ========
 Overview
-========
+======== 
+.. raw:: html
 
+    <embed>
+        <div style="max-height: 50px; max-width: 150px;">
+        <img src="https://lh3.googleusercontent.com/X-n4zQh48D-J7Vq7sqA7UoJRtMu4uf4Jwh7v3LiI4_-2pmL9PXjwx4r6X5RX4b1Fvpc" width="50px" height="50px">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1024px-Python-logo-notext.svg.png" width="50px" height="50px">
+        </div>
+    </embed>
+    
 .. start-badges
 
 .. list-table::
