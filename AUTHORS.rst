@@ -2,4 +2,4 @@
 Authors
 =======
 
-* Sean Sullivan - seanmcsullivan.ca
+* Sean Sullivan - seansullivan3@cmail.carleton.ca

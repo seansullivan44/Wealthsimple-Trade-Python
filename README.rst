@@ -1,15 +1,17 @@
-========
-Overview
-======== 
+================
+Package Overview
+================
+A convenient Python wrapper for the Wealthsimple Trade API. Note that this wrapper is Unofficial and is not in any way affiliated with Wealthsimple. Please use at your own risk.
+
 .. raw:: html
 
     <embed>
-        <div style="max-height: 50px; max-width: 150px;">
+        <div style="max-height: 50px; max-width: 150px; margin: 0 auto">
         <img src="https://lh3.googleusercontent.com/X-n4zQh48D-J7Vq7sqA7UoJRtMu4uf4Jwh7v3LiI4_-2pmL9PXjwx4r6X5RX4b1Fvpc" width="50px" height="50px">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1024px-Python-logo-notext.svg.png" width="50px" height="50px">
         </div>
     </embed>
-    
+|
 .. start-badges
 
 .. list-table::
@@ -50,7 +52,6 @@ Overview
 
 .. end-badges
 
-A convenient Python wrapper for the Wealthsimple Trade API. Note that this wrapper is Unofficial and is not in any way affiliated with Wealthsimple. Please use at your own risk.
 
 
 Installation
@@ -78,27 +79,3 @@ Documentation
 
 https://Wealthsimple-Trade-Python.readthedocs.io/
 
-
-Development
-===========
-
-To run the all tests run::
-
-    tox
-
-Note, to combine the coverage data from all the tox environments run:
-
-.. list-table::
-    :widths: 10 90
-    :stub-columns: 1
-
-    - - Windows
-      - ::
-
-            set PYTEST_ADDOPTS=--cov-append
-            tox
-
-    - - Other
-      - ::
-
-            PYTEST_ADDOPTS=--cov-append tox
