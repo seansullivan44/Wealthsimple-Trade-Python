@@ -292,21 +292,3 @@ class WSTrade:
         """
         response = self.TradeAPI.makeRequest("GET", "forex")
         return response.json()
-
-
-"""
-WS = WSTrade(os.environ["WSUSER"], os.environ["WSP"])
-print("\n\n\n\n")
-print(WS.__doc__)
-id = WS.get_account_ids()
-# account = WS.get_account(id[2])
-# history = WS.get_account_history(time="1y", id="lol")
-# me = WS.get_positions(id[2])
-me = WS.get_positions(id=id[2])
-# print(me["results"])
-"""
-"""
-for x in me:
-    print(x)
-    print("\n")
-"""
