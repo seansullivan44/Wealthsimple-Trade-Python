@@ -1,5 +1,5 @@
-requests==2.11.1
-vcrpy==1.10.3
-pytest==3.0.3
-flake8==3.8.1
-black==19.10b0
+requests
+vcrpy
+pytest
+flake8
+black
