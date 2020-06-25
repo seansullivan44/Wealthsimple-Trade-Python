@@ -24,25 +24,17 @@ A convenient Python wrapper for the Wealthsimple Trade API. Note that this wrapp
         | |codecov|
     * - package
       - | |commits-since|
-.. |docs| image:: https://readthedocs.org/projects/Wealthsimple-Trade-Python/badge/?style=flat
-    :target: https://readthedocs.org/projects/Wealthsimple-Trade-Python
+.. |docs| image:: https://readthedocs.org/projects/wealthsimple-trade-python/badge/?version=latest
+    :target: https://wealthsimple-trade-python.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
-
+    
 .. |travis| image:: https://api.travis-ci.org/seansullivan44/Wealthsimple-Trade-Python.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/seansullivan44/Wealthsimple-Trade-Python
 
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/seansullivan44/Wealthsimple-Trade-Python?branch=master&svg=true
-    :alt: AppVeyor Build Status
-    :target: https://ci.appveyor.com/project/seansullivan44/Wealthsimple-Trade-Python
-
 .. |requires| image:: https://requires.io/github/seansullivan44/Wealthsimple-Trade-Python/requirements.svg?branch=master
     :alt: Requirements Status
     :target: https://requires.io/github/seansullivan44/Wealthsimple-Trade-Python/requirements/?branch=master
-
-.. |codecov| image:: https://codecov.io/gh/seansullivan44/Wealthsimple-Trade-Python/branch/master/graphs/badge.svg?branch=master
-    :alt: Coverage Status
-    :target: https://codecov.io/github/seansullivan44/Wealthsimple-Trade-Python
 
 .. |commits-since| image:: https://img.shields.io/github/commits-since/seansullivan44/Wealthsimple-Trade-Python/v0.0.1.svg
     :alt: Commits since latest release
