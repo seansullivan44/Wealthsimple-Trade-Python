@@ -20,8 +20,7 @@ A convenient Python wrapper for the Wealthsimple Trade API. Note that this wrapp
     * - docs
       - |docs|
     * - tests
-      - | |travis| |appveyor| |requires|
-        | |codecov|
+      - | |travis| |requires|
     * - package
       - | |commits-since|
 .. |docs| image:: https://readthedocs.org/projects/wealthsimple-trade-python/badge/?version=latest
