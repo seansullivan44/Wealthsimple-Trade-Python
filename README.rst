@@ -1,6 +1,6 @@
-================
-Package Overview
-================
+=========================
+Wealthsimple Trade Python
+=========================
 A convenient Python wrapper for the Wealthsimple Trade API. Note that this wrapper is Unofficial and is not in any way affiliated with Wealthsimple. Please use at your own risk.
 
 .. raw:: html
@@ -37,7 +37,7 @@ A convenient Python wrapper for the Wealthsimple Trade API. Note that this wrapp
 
 .. |commits-since| image:: https://img.shields.io/pypi/v/wealthsimple-trade-python
     :alt: Commits since latest release
-    :target: https://github.com/seansullivan44/Wealthsimple-Trade-Python/compare/v0.0.1...master
+    :target: https://pypi.org/project/wealthsimple-trade-python/
 
 .. end-badges
 
