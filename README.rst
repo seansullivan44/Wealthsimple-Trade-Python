@@ -35,14 +35,19 @@ A convenient Python wrapper for the Wealthsimple Trade API. Note that this wrapp
     :alt: Requirements Status
     :target: https://requires.io/github/seansullivan44/Wealthsimple-Trade-Python/requirements/?branch=master
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/seansullivan44/Wealthsimple-Trade-Python/v0.0.1.svg
+.. |commits-since| image:: https://img.shields.io/pypi/v/wealthsimple-trade-python
     :alt: Commits since latest release
     :target: https://github.com/seansullivan44/Wealthsimple-Trade-Python/compare/v0.0.1...master
 
+|PyPI version fury.io|
 
-
+.. |PyPI version fury.io| image:: https://img.shields.io/pypi/v/wealthsimple-trade-python
+   :target: https://pypi.org/project/wealthsimple-trade-python/1.0.0/
+   
+   .. |pypi| image:: https://img.shields.io/pypi/v/wealthsimple-trade-python
+    :alt: Commits since latest release
+    :target: https://pypi.org/project/wealthsimple-trade-python/1.0.0/
 .. end-badges
-
 
 
 Installation
