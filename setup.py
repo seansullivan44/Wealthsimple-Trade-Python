@@ -27,7 +27,7 @@ with open("README.rst", "r") as fh:
 
 setup(
     name="wealthsimple-trade-python",
-    version="1.0.4",
+    version="1.0.5",
     license="MIT",
     description="Python wrapper for the Wealthsimple Trade API",
     long_description=long_description,

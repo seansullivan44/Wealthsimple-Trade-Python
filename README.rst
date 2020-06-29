@@ -63,6 +63,7 @@ Download the Wealthsimple Trade app for iOS or Android and create an account. Th
 
 If your Wealthsimple Trade account uses two-factor authentication then you must provide the `WSTrade` object with a callback function as shown in the following example: 
 ::
+
     import wealthsimple
 
     def my_two_factor_function():
