@@ -14,26 +14,24 @@ from os.path import splitext
 from setuptools import find_packages
 from setuptools import setup
 
-
+"""
 def read(*names, **kwargs):
     with io.open(
         join(dirname(__file__), *names), encoding=kwargs.get("encoding", "utf8")
     ) as fh:
         return fh.read()
+"""
 
+with open("README.rst", "r") as fh:
+    long_description = fh.read()
 
 setup(
     name="wealthsimple-trade-python",
-    version="1.0.0",
+    version="1.0.4",
     license="MIT",
     description="Python wrapper for the Wealthsimple Trade API",
-    long_description="%s\n%s"
-    % (
-        re.compile("^.. start-badges.*^.. end-badges", re.M | re.S).sub(
-            "", read("README.rst")
-        ),
-        re.sub(":[a-z]+:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst")),
-    ),
+    long_description=long_description,
+    long_description_content_type="text/x-rst",
     author="Sean Sullivan",
     author_email="sean.mc.sullivan@gmail.com",
     url="https://github.com/seansullivan44/Wealthsimple-Trade-Python",
