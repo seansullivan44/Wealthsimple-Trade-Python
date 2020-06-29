@@ -49,7 +49,7 @@ class WSTrade:
         Get foreign exchange rate
     """
 
-    def __init__(self, email, password):
+    def __init__(self, email: str, password: str, two_factor_callback: callable = None):
         """
         Parameters
         ----------
@@ -57,13 +57,20 @@ class WSTrade:
             Wealthsimple Trade login email
         password : str
             Wealthsimple Trade login password
+        two_factor_callback: function
+            Callback function that returns user input for 2FA code
         """
         self.session = Session()
         self.APIMAIN = "https://trade-service.wealthsimple.com/"
         self.TradeAPI = APIRequestor(self.session, self.APIMAIN)
-        self.login(email, password)
+        self.login(email, password, two_factor_callback=two_factor_callback)
 
-    def login(self, email=None, password=None, two_factor_callback=None):
+    def login(
+        self,
+        email: str = None,
+        password: str = None,
+        two_factor_callback: callable = None,
+    ) -> None:
         """Login to Wealthsimple Trade account
 
         Parameters
@@ -72,27 +79,48 @@ class WSTrade:
             Wealthsimple Trade account email
         password : str
             Wealthsimple Trade account password
+        two_factor_callback: function
+            Callback function that returns user input for 2FA code
 
         Returns
         -------
         None
         """
         if email and password:
+
+            # Login credentials to pass in request
             data = [
                 ("email", email),
                 ("password", password),
             ]
-            try:
-                response = self.TradeAPI.makeRequest("POST", "auth/login", data)
-            except Exception as err:
-                print(err)
+
+            response = self.TradeAPI.makeRequest("POST", "auth/login", data)
+
+            # Check if account requires 2FA
+            if "x-wealthsimple-otp" in response.headers:
+                if two_factor_callback == None:
+                    raise Exception(
+                        "This account requires 2FA. A 2FA callback function must be provided"
+                    )
+                else:
+                    # Obtain 2FA code using callback function
+                    MFACode = two_factor_callback()
+                    # Add the 2FA code to the body of the login request
+                    data.append(("otp", MFACode))
+                    # Make a second login request using the 2FA code
+                    response = self.TradeAPI.makeRequest("POST", "auth/login", data)
+
+            if response.status_code == 401:
+                raise Exception("Invalid Login")
+
+            # Update session headers with the API access token
             self.session.headers.update(
                 {"Authorization": response.headers["X-Access-Token"]}
             )
         else:
             raise Exception("Missing login credentials")
 
-    def get_accounts(self):
+    def get_accounts(self) -> list:
         """Get Wealthsimple Trade accounts
 
         Returns
@@ -105,7 +133,7 @@ class WSTrade:
         response = response["results"]
         return response
 
-    def get_account_ids(self):
+    def get_account_ids(self) -> list:
         """Get Wealthsimple Trade account ids
 
         Returns
@@ -119,7 +147,7 @@ class WSTrade:
             accountIDList.append(account["id"])
         return accountIDList
 
-    def get_account(self, id):
+    def get_account(self, id: str) -> dict:
         """Get a Wealthsimple Trade account given an id
 
         Parameters
@@ -138,7 +166,7 @@ class WSTrade:
                 return account
         raise NameError(f"{id} does not correspond to any account")
 
-    def get_account_history(self, id, time="all"):
+    def get_account_history(self, id: str, time: str = "all") -> dict:
         """Get Wealthsimple Trade account history
 
         Parameters
@@ -163,7 +191,7 @@ class WSTrade:
 
         return response
 
-    def get_activities(self):
+    def get_activities(self) -> list:
         """Get Wealthsimple Trade activities
 
         Returns
@@ -175,7 +203,7 @@ class WSTrade:
         response = response.json()
         return response["results"]
 
-    def get_orders(self, symbol=None):
+    def get_orders(self, symbol: str = None) -> list:
         """Get Wealthsimple Trade orders
 
         Parameters
@@ -200,7 +228,7 @@ class WSTrade:
         else:
             return response
 
-    def get_security(self, symbol):
+    def get_security(self, symbol: str) -> list:
         """Get information about a security
 
         Parameters
@@ -217,7 +245,7 @@ class WSTrade:
         response = response.json()
         return response["results"]
 
-    def get_positions(self, id):
+    def get_positions(self, id: str) -> list:
         """Get positions
 
         Parameters
@@ -236,7 +264,7 @@ class WSTrade:
         response = response.json()
         return response["results"]
 
-    def get_person(self):
+    def get_person(self) -> dict:
         """Get Wealthsimple Trade person object
 
         Returns
@@ -247,7 +275,7 @@ class WSTrade:
         response = self.TradeAPI.makeRequest("GET", "person")
         return response.json()
 
-    def get_me(self):
+    def get_me(self) -> dict:
         """Get Wealthsimple Trade user object
 
         Returns
@@ -258,7 +286,7 @@ class WSTrade:
         response = self.TradeAPI.makeRequest("GET", "me")
         return response.json()
 
-    def get_bank_accounts(self):
+    def get_bank_accounts(self) -> list:
         """Get list of bank accounts tied to Wealthsimple Trade account
 
         Returns
@@ -270,7 +298,7 @@ class WSTrade:
         response = response.json()
         return response["results"]
 
-    def get_deposits(self):
+    def get_deposits(self) -> list:
         """Get list of deposits
 
         Returns
@@ -282,7 +310,7 @@ class WSTrade:
         response = response.json()
         return response["results"]
 
-    def get_forex(self):
+    def get_forex(self) -> dict:
         """Get foreign exchange rate
 
         Returns
