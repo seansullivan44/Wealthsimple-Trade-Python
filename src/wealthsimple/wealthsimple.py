@@ -228,8 +228,26 @@ class WSTrade:
         else:
             return response
 
-    def get_security(self, symbol: str) -> list:
+    def get_security(self, id: str) -> dict:
         """Get information about a security
+
+        Parameters
+        ----------
+        id : str
+            Wealthsimple Security ID to search on
+
+        Returns
+        -------
+        dict
+            Dictionary containing information for security
+        """
+
+        response = self.TradeAPI.makeRequest("GET", f"securities/{id}")
+        response = response.json()
+        return response
+
+    def get_securities_from_ticker(self, symbol: str) -> list:
+        """Get information about a securitys with matching ticker symbols
 
         Parameters
         ----------
