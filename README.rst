@@ -73,7 +73,7 @@ If your Wealthsimple Trade account uses two-factor authentication then you must 
             MFACode = input("Enter 2FA code: ")
         return MFACode
 
-    ws = WSTrade(
+    ws = wealthsimple.WSTrade(
         "email",
         "password",
         two_factor_callback=my_two_factor_function,
