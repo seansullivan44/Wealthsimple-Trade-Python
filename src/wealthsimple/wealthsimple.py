@@ -247,7 +247,7 @@ class WSTrade:
         return response
 
     def get_securities_from_ticker(self, symbol: str) -> list:
-        """Get information about a securitys with matching ticker symbols
+        """Get information about a securities with matching ticker symbols
 
         Parameters
         ----------
@@ -338,3 +338,98 @@ class WSTrade:
         """
         response = self.TradeAPI.makeRequest("GET", "forex")
         return response.json()
+
+    def get_security_id_from_stock_symbol(self, stock_symbol: str) -> str:
+        """Get Wealthsimple Security ID of a specific stock symbol (ticker)
+
+        Parameters
+        ----------
+        stock_symbol : str
+            Security symbol to search for
+
+        Returns
+        -------
+        str
+            A str containing Wealthsimple Security ID for the stock
+        """
+        response = self.TradeAPI.makeRequest("GET", f"securities?query={stock_symbol}")
+        response = response.json()
+        if response['total_count'] == 1:
+            # This check ensure we have an exact match for our search
+            return response["results"][0]['id']
+        else:
+            return ''
+
+    def place_order(self, account_id: str, security_id: str, quantity: int, order_type: str) -> dict:
+
+        """Posts an order (market) to Wealthsimple API
+
+        Parameters
+        ----------
+        :param order_type: str
+            The order type ('buy_quantity', 'sell_quantity'
+        :param quantity: int
+            The The number of securities to Buy/Sell
+        :param security_id:
+            The Wealthsimple Security ID
+        :param account_id : str
+            The Wealthsimple Account id
+
+        Returns
+        -------
+        dict
+            A dict representing the order
+        """
+
+        order = {
+            "account_id": account_id,
+            "security_id": security_id,
+            "quantity": quantity,
+            "order_type": order_type,
+            "order_sub_type": "market",
+            "time_in_force": "day",
+        }
+        response = self.TradeAPI.makeRequest("POST", "orders", order)
+        response = response.json()
+        return response["results"]
+
+    def buy(self, account_id, security_id, quantity):
+
+        """Places a market buy order for to the Wealthsimple API under the specified account id
+                Parameters
+        ----------
+        :param quantity: int
+            The The number of securities to Buy
+        :param security_id:
+            The Wealthsimple Security ID
+        :param account_id : str
+            The Wealthsimple Account id
+
+        Returns
+        -------
+        dict
+            A dict representing the returned order
+
+        """
+        return self.place_order(account_id, security_id, quantity, "buy_quantity")
+
+    def sell(self, account_id, security_id, quantity):
+
+        """Places a market sell order for to the Wealthsimple API under the specified account id
+                Parameters
+        ----------
+        :param quantity: int
+            The The number of securities to Buy
+        :param security_id:
+            The Wealthsimple Security ID
+        :param account_id : str
+            The Wealthsimple Account id
+
+        Returns
+        -------
+        dict
+            A dict representing the returned order
+
+        """
+
+        return self.place_order(account_id, security_id, quantity, "sell_quantity")
