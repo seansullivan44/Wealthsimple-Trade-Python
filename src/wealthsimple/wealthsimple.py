@@ -66,10 +66,10 @@ class WSTrade:
         self.login(email, password, two_factor_callback=two_factor_callback)
 
     def login(
-        self,
-        email: str = None,
-        password: str = None,
-        two_factor_callback: callable = None,
+            self,
+            email: str = None,
+            password: str = None,
+            two_factor_callback: callable = None,
     ) -> None:
         """Login to Wealthsimple Trade account
 
@@ -360,40 +360,26 @@ class WSTrade:
         else:
             return ''
 
-    def place_order(self, account_id: str, security_id: str, quantity: int, order_type: str) -> dict:
+    def place_order(self, order: dict) -> dict:
 
         """Posts an order (market) to Wealthsimple API
 
         Parameters
         ----------
-        :param order_type: str
-            The order type ('buy_quantity', 'sell_quantity'
-        :param quantity: int
-            The The number of securities to Buy/Sell
-        :param security_id:
-            The Wealthsimple Security ID
-        :param account_id : str
-            The Wealthsimple Account id
+        :param order:
+            The order dict containing the data to be submitted
 
         Returns
         -------
         dict
-            A dict representing the order
+            A dict representing the  submitted order
         """
 
-        order = {
-            "account_id": account_id,
-            "security_id": security_id,
-            "quantity": quantity,
-            "order_type": order_type,
-            "order_sub_type": "market",
-            "time_in_force": "day",
-        }
         response = self.TradeAPI.makeRequest("POST", "orders", order)
         response = response.json()
         return response["results"]
 
-    def buy(self, account_id, security_id, quantity):
+    def market_buy(self, account_id, security_id, quantity):
 
         """Places a market buy order for to the Wealthsimple API under the specified account id
                 Parameters
@@ -411,9 +397,22 @@ class WSTrade:
             A dict representing the returned order
 
         """
-        return self.place_order(account_id, security_id, quantity, "buy_quantity")
 
-    def sell(self, account_id, security_id, quantity):
+        quote = self.get_security(security_id)['quote']['amount']
+        if quote:
+            order = {
+                "account_id": account_id,
+                "security_id": security_id,
+                "limit_price": quote,
+                "quantity": quantity,
+                "order_type": "buy_quantity",
+                "order_sub_type": "market",
+                "time_in_force": "day",
+            }
+            return self.place_order(order)
+        raise RuntimeError('Failed to get quote amount when submitting market buy order')
+
+    def market_sell(self, account_id, security_id, quantity):
 
         """Places a market sell order for to the Wealthsimple API under the specified account id
                 Parameters
@@ -431,5 +430,71 @@ class WSTrade:
             A dict representing the returned order
 
         """
+        quote = self.get_security(security_id)['quote']['amount']
+        if quote:
+            order = {
+                "account_id": account_id,
+                "security_id": security_id,
+                "quantity": quantity,
+                "limit_price": quote,
+                "order_type": "sell_quantity",
+                "order_sub_type": "market",
+                "time_in_force": "day",
+            }
+            return self.place_order(order)
+        raise RuntimeError('Failed to get quote amount when submitting market sell order')
 
-        return self.place_order(account_id, security_id, quantity, "sell_quantity")
+    def limit_buy(self, account_id, security_id, quantity, limit_price) -> dict:
+
+        """ Places a limit buy order for the Wealthsimple API with the specified account_id and security_id
+                Parameters
+        ----------
+        :param account_id:
+        :param security_id:
+        :param quantity:
+        :param limit_price:
+
+        Returns
+        ----------
+        dict
+            A dict representing the order returned from the API
+        """
+
+        order = {
+            "account_id": account_id,
+            "security_id": security_id,
+            "quantity": quantity,
+            "limit_price": limit_price,
+            "order_type": "buy_quantity",
+            "order_sub_type": "limit",
+            "time_in_force": "day",
+        }
+
+        return self.place_order(order)
+
+    def limit_sell(self, account_id, security_id, quantity, limit_price) -> dict:
+
+        """ Places a limit sell order for the Wealthsimple API with the specified parameters
+                Parameters
+        ----------
+        :param account_id:
+        :param security_id:
+        :param quantity:
+        :param limit_price:
+
+        Returns
+        ----------
+        dict
+            A dict representing the order returned from the API
+        """
+
+        order = {
+            "account_id": account_id,
+            "security_id": security_id,
+            "quantity": quantity,
+            "limit_price": limit_price,
+            "order_type": "sell_quantity",
+            "order_sub_type": "limit",
+            "time_in_force": "day",
+        }
+        return self.place_order(order)
