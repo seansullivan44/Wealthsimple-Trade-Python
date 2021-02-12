@@ -403,7 +403,7 @@ class WSTrade:
             order = {
                 "account_id": account_id,
                 "security_id": security_id,
-                "limit_price": quote,
+                "limit_price": str(quote),
                 "quantity": quantity,
                 "order_type": "buy_quantity",
                 "order_sub_type": "market",

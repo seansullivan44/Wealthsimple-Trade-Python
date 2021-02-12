@@ -77,7 +77,12 @@ class APIRequestor:
         """
 
         try:
-            return self.session.post(URL, params)
+            headers = {
+                'Authorization': self.session.headers['Authorization']
+            }
+            response = requests.post(URL, json=params, headers=headers)
+            response = response.json()
+            return response["results"]
         except Exception as err:
             print(err)
 
