@@ -77,14 +77,10 @@ class APIRequestor:
         """
 
         try:
-            headers = {
-                'Authorization': self.session.headers['Authorization']
-            }
-            response = requests.post(URL, json=params, headers=headers)
-            response = response.json()
-            return response["results"]
+            return self.session.post(URL, params)
         except Exception as err:
             print(err)
+
 
     def get(self, URL, params=None):
         """Make a GET request to a given API endpoint
