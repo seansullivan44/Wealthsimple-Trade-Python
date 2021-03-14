@@ -1,5 +1,5 @@
 from .requestor import APIRequestor
-from requests import Session
+import cloudscraper
 import os
 import json
 
@@ -60,7 +60,7 @@ class WSTrade:
         two_factor_callback: function
             Callback function that returns user input for 2FA code
         """
-        self.session = Session()
+        self.session = cloudscraper.create_scraper()
         self.APIMAIN = "https://trade-service.wealthsimple.com/"
         self.TradeAPI = APIRequestor(self.session, self.APIMAIN)
         self.login(email, password, two_factor_callback=two_factor_callback)
@@ -108,7 +108,8 @@ class WSTrade:
                     # Add the 2FA code to the body of the login request
                     data.append(("otp", MFACode))
                     # Make a second login request using the 2FA code
-                    response = self.TradeAPI.makeRequest("POST", "auth/login", data)
+                    response = self.TradeAPI.makeRequest(
+                        "POST", "auth/login", data)
 
             if response.status_code == 401:
                 raise Exception("Invalid Login")
@@ -259,7 +260,8 @@ class WSTrade:
         list
             A list containing matching securities
         """
-        response = self.TradeAPI.makeRequest("GET", f"securities?query={symbol}")
+        response = self.TradeAPI.makeRequest(
+            "GET", f"securities?query={symbol}")
         response = response.json()
         return response["results"]
 

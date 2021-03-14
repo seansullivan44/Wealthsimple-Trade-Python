@@ -8,8 +8,10 @@ Sean Sullivan (Project Creator)
 * Email: seansullivan3@cmail.carleton.ca
 * Website: seanmcsullivan.ca
 
-
 NicBT
 *******************************
 * GitHub: https://github.com/NicBT
 
+Joey Orlando
+*******************************
+* GitHub: https://github.com/joeyorlando

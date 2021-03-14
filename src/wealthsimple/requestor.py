@@ -1,6 +1,3 @@
-import requests
-
-
 class APIRequestor:
     """
     A class to simplify request calls to REST API
@@ -97,5 +94,5 @@ class APIRequestor:
             A requests response object
         """
         auth = self.session.headers["Authorization"]
-        response = requests.get(URL, headers={"Authorization": auth})
+        response = self.session.get(URL, headers={"Authorization": auth})
         return response
