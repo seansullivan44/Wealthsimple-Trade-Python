@@ -53,6 +53,8 @@ You can also install the in-development version with::
 
     pip install https://github.com/seansullivan44/Wealthsimple-Trade-Python/archive/master.zip
 
+*Note*: `node` is a dependency of this project. See [here](https://github.com/VeNoMouS/cloudscraper#dependencies) for more information.
+
 Getting Started
 ===============
 Download the Wealthsimple Trade app for iOS or Android and create an account. This API wrapper will use your Wealthsimple Trade login credentials to make successful API calls. After creating an account, use your login credentials to create a WSTrade object:
