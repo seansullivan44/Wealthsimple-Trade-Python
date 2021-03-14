@@ -27,7 +27,7 @@ with open("README.rst", "r") as fh:
 
 setup(
     name="wealthsimple-trade-python",
-    version="1.0.5",
+    version="1.1.0",
     license="MIT",
     description="Python wrapper for the Wealthsimple Trade API",
     long_description=long_description,
@@ -62,7 +62,8 @@ setup(
         "Changelog": "https://Wealthsimple-Trade-Python.readthedocs.io/en/latest/changelog.html",
         "Issue Tracker": "https://github.com/seansullivan44/Wealthsimple-Trade-Python/issues",
     },
-    keywords=["wealthsimple", "trade", "finance", "stocks", "market", "api", "wrapper"],
+    keywords=["wealthsimple", "trade", "finance",
+              "stocks", "market", "api", "wrapper"],
     python_requires="!=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
-    install_requires=["requests",],
+    install_requires=["cloudscraper", ],
 )

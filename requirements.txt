@@ -1,4 +1,4 @@
-requests
+cloudscraper==1.2.56
 vcrpy
 pytest
 flake8
