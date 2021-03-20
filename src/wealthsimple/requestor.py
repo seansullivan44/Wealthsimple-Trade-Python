@@ -78,6 +78,7 @@ class APIRequestor:
         except Exception as err:
             print(err)
 
+
     def get(self, URL, params=None):
         """Make a GET request to a given API endpoint
 
