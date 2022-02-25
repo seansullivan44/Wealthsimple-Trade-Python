@@ -19,8 +19,10 @@ class WSTrade:
 
     Methods
     -------
-    login(email=None, password=None, two_factor_callback=None)
+    login(email=None, password=None, two_factor_callback=None, recovery_code=None)
         Login to Wealthsimple Trade account
+    get_recovery_code()
+        Fetches a new recovery code to be able to login again without 2FA
     get_accounts()
         Get Wealthsimple Trade accounts
     get_account_ids()
@@ -49,7 +51,13 @@ class WSTrade:
         Get foreign exchange rate
     """
 
-    def __init__(self, email: str, password: str, two_factor_callback: callable = None):
+    def __init__(
+        self, 
+        email: str, 
+        password: str, 
+        two_factor_callback: callable = None,
+        recovery_code: str = None,
+    ):
         """
         Parameters
         ----------
@@ -63,13 +71,19 @@ class WSTrade:
         self.session = cloudscraper.create_scraper()
         self.APIMAIN = "https://trade-service.wealthsimple.com/"
         self.TradeAPI = APIRequestor(self.session, self.APIMAIN)
-        self.login(email, password, two_factor_callback=two_factor_callback)
+        self.login(
+            email, 
+            password, 
+            two_factor_callback=two_factor_callback,
+            recovery_code=recovery_code
+        )
 
     def login(
         self,
         email: str = None,
         password: str = None,
         two_factor_callback: callable = None,
+        recovery_code: str = None,
     ) -> None:
         """Login to Wealthsimple Trade account
 
@@ -81,6 +95,8 @@ class WSTrade:
             Wealthsimple Trade account password
         two_factor_callback: function
             Callback function that returns user input for 2FA code
+        recovery_code: str
+            Recovery code linked with account to skip 2FA
 
         Returns
         -------
@@ -98,18 +114,25 @@ class WSTrade:
 
             # Check if account requires 2FA
             if "x-wealthsimple-otp" in response.headers:
-                if two_factor_callback == None:
-                    raise Exception(
-                        "This account requires 2FA. A 2FA callback function must be provided"
-                    )
-                else:
+                if recovery_code is not None:
+                    # Use the recovery code for login
+                    MFACode = recovery_code
+
+                elif two_factor_callback is not None:
                     # Obtain 2FA code using callback function
                     MFACode = two_factor_callback()
-                    # Add the 2FA code to the body of the login request
-                    data.append(("otp", MFACode))
-                    # Make a second login request using the 2FA code
-                    response = self.TradeAPI.makeRequest(
-                        "POST", "auth/login", data)
+
+                else:
+                    raise Exception(
+                        "This account requires 2FA. A 2FA callback function "
+                        "or a recovery code must be provided."
+                    )
+                
+                # Add the 2FA code to the body of the login request
+                data.append(("otp", MFACode))
+                # Make a second login request using the 2FA code
+                response = self.TradeAPI.makeRequest(
+                    "POST", "auth/login", data)
 
             if response.status_code == 401:
                 raise Exception("Invalid Login")
