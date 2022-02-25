@@ -110,15 +110,14 @@ class WSTrade:
                 ("password", password),
             ]
 
+            if recovery_code:
+                data.append(("otp", recovery_code))
+
             response = self.TradeAPI.makeRequest("POST", "auth/login", data)
 
             # Check if account requires 2FA
-            if "x-wealthsimple-otp" in response.headers:
-                if recovery_code is not None:
-                    # Use the recovery code for login
-                    MFACode = recovery_code
-
-                elif two_factor_callback is not None:
+            if "x-wealthsimple-otp" in response.headers and not recovery_code:
+                if two_factor_callback is not None:
                     # Obtain 2FA code using callback function
                     MFACode = two_factor_callback()
 
