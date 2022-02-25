@@ -144,6 +144,32 @@ class WSTrade:
         else:
             raise Exception("Missing login credentials")
 
+    def get_recovery_code(self):
+        response = self.get_me()
+        user_id = response['external_hw_user_id']
+
+        data = {
+            "operationName": "createRecoveryCodesMutation",
+            "variables": """
+            {"user_id": "%s"}
+            """%user_id,
+            "query": """
+                mutation createRecoveryCodesMutation($user_id: String!) {
+                    createRecoveryCodes(user_id: $user_id) {
+                        recovery_code
+                        recovery_kit_url
+                        __typename
+                    }
+                }
+            """
+        }
+        
+        self.TradeAPI.APIMainURL = 'https://my.wealthsimple.com/'
+        response = self.TradeAPI.makeRequest('POST', 'graphql', data)
+        self.TradeAPI.APIMainURL = self.APIMAIN
+
+        return response.json()['data']['createRecoveryCodes']['recovery_code']
+
     def get_accounts(self) -> list:
         """Get Wealthsimple Trade accounts
 
